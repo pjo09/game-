@@ -6,7 +6,18 @@ import { Game } from './components/Game';
 import { GameRoom, Vector3D } from './types';
 import { audioManager } from './utils/AudioManager';
 
-const SERVER_URL = import.meta.env.VITE_GAME_SERVER_URL || import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+const getGameServerUrl = (): string => {
+  const envUrl = import.meta.env.VITE_GAME_SERVER_URL || import.meta.env.VITE_SERVER_URL;
+  if (envUrl && envUrl.trim() !== '') {
+    return envUrl.trim();
+  }
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return 'http://localhost:3001';
+  }
+  return typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3001';
+};
+
+const SERVER_URL = getGameServerUrl();
 
 export function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -27,6 +38,8 @@ export function App() {
     const newSocket = io(SERVER_URL, {
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 5,
+      timeout: 10000,
+      autoConnect: true,
     });
 
     newSocket.on('room_joined', (roomState: GameRoom) => {
