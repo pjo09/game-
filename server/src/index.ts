@@ -3,15 +3,15 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { GameManager } from './game/GameManager.js';
+import { GameManager } from './game/GameManager';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-const clientUrl = process.env.CLIENT_URL || '*';
+const corsOrigin = process.env.CORS_ORIGIN || process.env.CLIENT_URL || '*';
 
-app.use(cors({ origin: clientUrl, credentials: true }));
+app.use(cors({ origin: corsOrigin, credentials: true }));
 app.use(express.json());
 
 app.get('/health', (req, res) => {
@@ -21,7 +21,7 @@ app.get('/health', (req, res) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: clientUrl,
+    origin: corsOrigin,
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -36,8 +36,8 @@ io.on('connection', (socket) => {
   gameManager.handleConnection(socket);
 });
 
-httpServer.listen(port, () => {
-  console.log(`🚀 HIDEOUT Server running on port ${port}`);
+httpServer.listen(Number(port), '0.0.0.0', () => {
+  console.log(`🚀 HIDEOUT Server running on 0.0.0.0:${port}`);
 });
 
 process.on('SIGTERM', () => {

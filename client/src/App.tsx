@@ -6,7 +6,7 @@ import { Game } from './components/Game';
 import { GameRoom, Vector3D } from './types';
 import { audioManager } from './utils/AudioManager';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+const SERVER_URL = import.meta.env.VITE_GAME_SERVER_URL || import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
 
 export function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -25,7 +25,7 @@ export function App() {
 
   useEffect(() => {
     const newSocket = io(SERVER_URL, {
-      transports: ['websocket'],
+      transports: ['websocket', 'polling'],
       reconnectionAttempts: 5,
     });
 

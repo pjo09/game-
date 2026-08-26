@@ -1,4 +1,4 @@
-import { PlayerState, GameRole } from './types.js';
+import { PlayerState, GameRole } from './types';
 
 export class ScoringSystem {
   public static calculateTickScores(players: Record<string, PlayerState>, dtSec: number): void {

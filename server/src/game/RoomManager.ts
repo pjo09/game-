@@ -1,6 +1,6 @@
-import { GameRoomState, PlayerState } from './types.js';
-import { generateRoomCode } from '../utils/roomCode.js';
-import { GameStateMachine } from './GameStateMachine.js';
+import { GameRoomState, PlayerState } from './types';
+import { generateRoomCode } from '../utils/roomCode';
+import { GameStateMachine } from './GameStateMachine';
 
 export class RoomManager {
   private rooms: Map<string, { state: GameRoomState; fsm: GameStateMachine }> = new Map();

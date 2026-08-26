@@ -4,15 +4,15 @@ services:
     env: node
     region: oregon
     buildCommand: npm install && npm run build
-    startCommand: npm start
+    startCommand: node dist/index.js
     envVars:
       - key: PORT
-        value: 3001
+        sync: false
       - key: NODE_ENV
         value: production
-      - key: CLIENT_URL
-        value: https://hideout-game.vercel.app
+      - key: CORS_ORIGIN
+        sync: false
       - key: SUPABASE_URL
         sync: false
-      - key: SUPABASE_SERVICE_ROLE_KEY
+      - key: SUPABASE_SERVICE_KEY
         sync: false

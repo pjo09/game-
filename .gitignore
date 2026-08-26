@@ -10,12 +10,13 @@ build/
 
 # Environment variables
 .env
-.env.local
-.env.development
-.env.production
+.env.*
+client/.env
+server/.env
 
 # Logs
 *.log
+logs/
 .DS_Store
 .idea/
 .vscode/

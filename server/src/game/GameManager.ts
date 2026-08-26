@@ -1,9 +1,9 @@
 import { Server, Socket } from 'socket.io';
-import { RoomManager } from './RoomManager.js';
-import { ScoringSystem } from './ScoringSystem.js';
-import { RateLimiter } from '../utils/RateLimiter.js';
-import { updatePlayerStatsInDb } from '../db/supabase.js';
-import { MovePayload, CatchPayload, GameRole } from './types.js';
+import { RoomManager } from './RoomManager';
+import { ScoringSystem } from './ScoringSystem';
+import { RateLimiter } from '../utils/RateLimiter';
+import { updatePlayerStatsInDb } from '../db/supabase';
+import { MovePayload, CatchPayload, GameRole } from './types';
 
 export class GameManager {
   private roomManager = new RoomManager();

@@ -1,4 +1,4 @@
-import { GamePhase } from './types.js';
+import { GamePhase } from './types';
 
 export class GameStateMachine {
   private currentPhase: GamePhase = 'LOBBY';
